@@ -1,42 +1,41 @@
 package com.example.githubexplorer.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
-import androidx.compose.material3.lightColorScheme
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+    primary = Colors.PrimaryVariant,
+    onPrimary = Colors.BackgroundDark,
+    background = Colors.BackgroundDark,
+    surface = Colors.SurfaceDark,
+    onBackground = Colors.TextPrimary,
+    onSurface = Colors.TextPrimary,
+    secondary = Colors.TextSecondary,
+    onSecondary = Colors.BackgroundDark,
+    error = Color.Red,
+    onError = Color.White
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    primary = Colors.Primary,
+    onPrimary = Colors.BackgroundLight,
+    background = Colors.BackgroundLight,
+    surface = Colors.SurfaceLight,
+    onBackground = Colors.TextPrimary,
+    onSurface = Colors.TextPrimary,
+    secondary = Colors.TextSecondary,
+    onSecondary = Colors.BackgroundLight,
+    error = Color.Red,
+    onError = Color.White
 )
 
 @Composable
 fun GitHubExplorerTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
@@ -45,14 +44,27 @@ fun GitHubExplorerTheme(
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
-
         darkTheme -> DarkColorScheme
         else -> LightColorScheme
     }
 
+    val typography = Typography.create()
+
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography,
+        typography = Typography(
+            displayLarge = typography.Heading5,
+            headlineLarge = typography.Heading1,
+            headlineMedium = typography.Heading2,
+            headlineSmall = typography.Heading3,
+            titleLarge = typography.Heading4,
+            bodyLarge = typography.BodyMedium,
+            bodyMedium = typography.BodyLarge,
+            bodySmall = typography.BodySmall,
+            labelLarge = typography.ButtonLarge,
+            labelMedium = typography.ButtonMedium,
+            labelSmall = typography.CaptionRegular
+        ),
         content = content
     )
 }
