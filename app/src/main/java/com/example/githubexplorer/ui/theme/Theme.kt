@@ -1,70 +1,38 @@
 package com.example.githubexplorer.ui.theme
 
-import android.os.Build
-import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-
-private val DarkColorScheme = darkColorScheme(
-    primary = Colors.PrimaryVariant,
-    onPrimary = Colors.BackgroundDark,
-    background = Colors.BackgroundDark,
-    surface = Colors.SurfaceDark,
-    onBackground = Colors.TextPrimary,
-    onSurface = Colors.TextPrimary,
-    secondary = Colors.TextSecondary,
-    onSecondary = Colors.BackgroundDark,
-    error = Color.Red,
-    onError = Color.White
-)
-
-private val LightColorScheme = lightColorScheme(
-    primary = Colors.Primary,
-    onPrimary = Colors.BackgroundLight,
-    background = Colors.BackgroundLight,
-    surface = Colors.SurfaceLight,
-    onBackground = Colors.TextPrimary,
-    onSurface = Colors.TextPrimary,
-    secondary = Colors.TextSecondary,
-    onSecondary = Colors.BackgroundLight,
-    error = Color.Red,
-    onError = Color.White
-)
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.staticCompositionLocalOf
+import com.example.githubexplorer.ui.colors.AppColors
+import com.example.githubexplorer.ui.typography.AppTypography
 
 @Composable
-fun GitHubExplorerTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = true,
+fun AppTheme(
+    colors: AppColors,
+    typography: AppTypography,
     content: @Composable () -> Unit
 ) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+    CompositionLocalProvider(
+        LocalAppColors provides colors,
+        LocalAppTypography provides typography
+    ) {
+        content()
     }
+}
 
-    val typography = Typography.create()
+object AppTheme {
+    val colors: AppColors
+        @Composable
+        get() = LocalAppColors.current
+    val typography: AppTypography
+        @Composable
+        get() = LocalAppTypography.current
+}
 
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography(
-            displayLarge = typography.Heading5,
-            headlineLarge = typography.Heading1,
-            headlineMedium = typography.Heading2,
-            headlineSmall = typography.Heading3,
-            titleLarge = typography.Heading4,
-            bodyLarge = typography.BodyMedium,
-            bodyMedium = typography.BodyLarge,
-            bodySmall = typography.BodySmall,
-            labelLarge = typography.ButtonLarge,
-            labelMedium = typography.ButtonMedium,
-            labelSmall = typography.CaptionRegular
-        ),
-        content = content
-    )
+val LocalAppColors = staticCompositionLocalOf<AppColors> {
+    error("AppColors not provided")
+}
+
+val LocalAppTypography = staticCompositionLocalOf<AppTypography> {
+    error("AppTypography not provided")
 }
