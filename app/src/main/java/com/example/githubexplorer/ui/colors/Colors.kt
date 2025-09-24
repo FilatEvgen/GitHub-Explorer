@@ -21,7 +21,7 @@ private object TextPalette: ColorPalette {
     override val Primary = Color(0xFF111827)
     override val Secondary = Color(0xFF586069)
     override val Tertiary = Color(0xFF9CA3AF)
-    override val Accent = Color(0xFFFACC15)
+    override val Accent = Color(0xFF0366D6)
     override val Inverted = Color(0xFFFFFFFF)
 }
 

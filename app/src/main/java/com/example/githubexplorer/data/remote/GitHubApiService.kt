@@ -51,7 +51,7 @@ interface GitHubApiService {
                 val request = requestBuilder.build()
                 val response = chain.proceed(request)
                 if (!response.isSuccessful) {
-                    throw java.io.IOException("HTTP error code: ${response.code()}")
+                    throw java.io.IOException("HTTP error code: ${response.code}")
                 }
                 response
             }

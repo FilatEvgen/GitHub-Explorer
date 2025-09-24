@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">GitHub Explorer</string>
+    <string name="popular_developers">Popular Developers</string>
+    <string name="github_explorer">GitHub Explorer</string>
+    <string name="view_all">View All</string>
+    <string name="search_github_users">Search GitHub users...</string>
 </resources>
