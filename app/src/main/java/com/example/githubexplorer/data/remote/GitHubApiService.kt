@@ -1,11 +1,13 @@
+package com.example.githubexplorer.data.remote
+
 import com.example.githubexplorer.Constant.Companion.BASE_URL
-import com.example.githubexplorer.data.remote.Repos
-import com.example.githubexplorer.data.remote.ResultUsers
-import com.example.githubexplorer.data.remote.SearchUsers
-import com.example.githubexplorer.data.remote.UserDetails
+import okhttp3.OkHttpClient
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import java.io.IOException
 
 interface GitHubApiService {
     @GET("users")
@@ -40,7 +42,7 @@ interface GitHubApiService {
 
     companion object {
         fun create(authToken: String? = null): GitHubApiService {
-            val clientBuilder = okhttp3.OkHttpClient.Builder()
+            val clientBuilder = OkHttpClient.Builder()
 
             clientBuilder.addInterceptor { chain ->
                 val original = chain.request()
@@ -51,15 +53,15 @@ interface GitHubApiService {
                 val request = requestBuilder.build()
                 val response = chain.proceed(request)
                 if (!response.isSuccessful) {
-                    throw java.io.IOException("HTTP error code: ${response.code}")
+                    throw IOException("HTTP error code: ${response.code}")
                 }
                 response
             }
 
-            val retrofit = retrofit2.Retrofit.Builder()
+            val retrofit = Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(clientBuilder.build())
-                .addConverterFactory(retrofit2.converter.gson.GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
                 .build()
 
             return retrofit.create(GitHubApiService::class.java)

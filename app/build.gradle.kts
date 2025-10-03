@@ -1,9 +1,11 @@
+@file:Suppress("DEPRECATION")
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
-
+    alias(libs.plugins.hilt.android)
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
@@ -41,8 +43,6 @@ android {
     }
 }
 
-
-
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -54,12 +54,17 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter)
+    implementation(libs.okhttp.logging)
     implementation(libs.coroutines)
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
-    implementation(libs.navigation.fragment)
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.navigation.compose)
     implementation(libs.coil.compose)
     implementation(libs.coil.network)
+    implementation(libs.dagger.hilt)
+    ksp(libs.hilt.compiler)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

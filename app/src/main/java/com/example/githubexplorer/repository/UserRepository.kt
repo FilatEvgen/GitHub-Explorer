@@ -1,7 +1,10 @@
+package com.example.githubexplorer.repository
+
 import com.example.githubexplorer.data.local.RepoDao
 import com.example.githubexplorer.data.local.RepoEntity
 import com.example.githubexplorer.data.local.UserDao
 import com.example.githubexplorer.data.local.UserEntity
+import com.example.githubexplorer.data.remote.GitHubApiService
 
 class UserRepository (
     private val apiService: GitHubApiService,

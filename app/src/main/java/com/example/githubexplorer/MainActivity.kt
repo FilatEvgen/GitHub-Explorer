@@ -12,7 +12,9 @@ import com.example.githubexplorer.ui.main.MainViewModel
 import com.example.githubexplorer.ui.screens.MainScreen
 import com.example.githubexplorer.ui.theme.AppTheme
 import com.example.githubexplorer.ui.typography.Typography
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private val viewModel: MainViewModel by viewModels()
 
